@@ -1,0 +1,45 @@
+import * as bodyParser from 'body-parser';
+import * as config from '../config.json';
+
+import express from 'express';
+import logger from 'morgan';
+
+import HealthController from './controllers/HealthController';
+
+/**
+ * ENV vars should be properly passed in
+ * this is to get tests to run on a different firebase db
+ * I would normally mock the firebase db locally
+ */
+const baseRoute = `/${config.api.base}/${config.api.version}`;
+
+class Server {
+    public express: express.Application;
+
+    /**
+     * Initialize server
+     */
+    constructor() {
+        this.express = express();
+        this.middleware();
+        this.routes();
+    }
+
+    /**
+     * Configure Express middleware.
+     */
+    private middleware(): void {
+        this.express.use(logger(config.logger.level));
+        this.express.use(bodyParser.json());
+        this.express.use(bodyParser.urlencoded({ extended: false }));
+    }
+
+    /**
+     * Configure API endpoints.
+     */
+    private routes(): void {
+        this.express.use(`${baseRoute}/health`, HealthController);
+    }
+}
+
+export default new Server().express;
