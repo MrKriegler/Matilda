@@ -1,4 +1,4 @@
-import { TaskData, TaskStatus, TaskType } from '@matilda/src/types';
+import { TaskData, TaskStatus } from '@matilda/src/types';
 import { ITaskStateParent } from '../types';
 import { TaskState } from '../TaskState';
 import { ERRORS, throwError } from '@matilda/lib/common';
