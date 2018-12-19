@@ -1,4 +1,4 @@
-import { TaskState } from './TaskState';
+import { TaskState } from './base/TaskState';
 import { ITaskStateParent } from './types';
 import { TaskData } from '@matilda/src/types';
 import { NewTaskState } from './new';
@@ -47,7 +47,6 @@ export const TASK_STATE_CONSTRUCTORS: {
       'rescheduled': NewTaskState,
       'deleted': DeletedTaskState
     },
-
     'repair': {
       'create': CreateRepairTaskState,
       'new': NewTaskState,
@@ -57,7 +56,6 @@ export const TASK_STATE_CONSTRUCTORS: {
       'rescheduled': NewTaskState,
       'deleted': DeletedTaskState
     },
-
     'deinstallation': {
       'create': CreateDeinstallationTaskState,
       'new': NewTaskState,

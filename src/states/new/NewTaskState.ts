@@ -1,6 +1,6 @@
 import { TaskData, TaskStatus } from '@matilda/src/types';
 import { ITaskStateParent } from '../types';
-import { TaskState } from '../TaskState';
+import { TaskState } from '../base/TaskState';
 
 export class NewTaskState extends TaskState {
   public constructor(parent: ITaskStateParent,
