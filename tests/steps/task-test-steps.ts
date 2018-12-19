@@ -66,7 +66,6 @@ export class TaskTestSteps {
 
     delete (<any> newTask)._id;
     expect(newTask).to.deep.eq(taskData);
-
   }
 
   public async close() {
