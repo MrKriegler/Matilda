@@ -5,12 +5,8 @@ import express from 'express';
 import logger from 'morgan';
 
 import HealthController from './controllers/HealthController';
+import TaskController from './controllers/TaskController';
 
-/**
- * ENV vars should be properly passed in
- * this is to get tests to run on a different firebase db
- * I would normally mock the firebase db locally
- */
 const baseRoute = `/${config.api.base}/${config.api.version}`;
 
 class Server {
@@ -39,6 +35,7 @@ class Server {
      */
     private routes(): void {
         this.express.use(`${baseRoute}/health`, HealthController);
+        this.express.use(`${baseRoute}/tasks`, TaskController);
     }
 }
 

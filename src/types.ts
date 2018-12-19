@@ -3,7 +3,12 @@ export type TaskStatus = typeof DUMMY_TASK.status;
 export type TaskType = typeof DUMMY_TASK.type;
 
 export class TaskData {
-  'status':  ('new' | 'scheduled' | 'inprogress' | 'closed' | 'rescheduled' | 'deleted');
-  'type':  ('quote' | 'installation' | 'repair' | 'deinstallation');
+  'id'?: string;
+  'ref'?: string;
+  'detail'?: string;
   'userId'?: string;
+  'version': number;
+  'enabled': boolean;
+  'type':  ('quote' | 'installation' | 'repair' | 'deinstallation');
+  'status':  ('new' | 'scheduled' | 'inprogress' | 'closed' | 'rescheduled' | 'deleted');
 }

@@ -1,6 +1,6 @@
 import { TaskData, TaskStatus, TaskType } from '@matilda/src/types';
-import { ITaskStateParent } from './types';
-import { TASK_STATE_CONSTRUCTORS } from './consts';
+import { ITaskStateParent } from '../types';
+import { TASK_STATE_CONSTRUCTORS } from '../consts';
 
 
 export function constructTaskState(
