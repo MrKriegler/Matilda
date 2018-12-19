@@ -2,6 +2,19 @@ import { TaskData, TaskStatus, TaskType } from '@matilda/src/types';
 import { ITaskStateParent } from '../types';
 import { TASK_STATE_CONSTRUCTORS } from '../consts';
 
+// Needed as opposed  to normal construct as the task does not exist yet
+export function constructCreateTaskState(
+  parent: ITaskStateParent,
+  type: TaskType
+): TaskState {
+  const Constructor = TASK_STATE_CONSTRUCTORS[type] && TASK_STATE_CONSTRUCTORS[type]['create'];
+
+  if (!Constructor) {
+  throw new Error(`Unrecognized type of task: ${type}`);
+  }
+
+  return new Constructor(parent, <any> { type });
+}
 
 export function constructTaskState(
   parent: ITaskStateParent,
@@ -14,20 +27,6 @@ export function constructTaskState(
   }
 
   return new Constructor(parent, task);
-}
-
-export function constructCreateTaskState(
-  parent: ITaskStateParent,
-  type: TaskType
-): TaskState {
-  const Constructor = TASK_STATE_CONSTRUCTORS[type]
-  && TASK_STATE_CONSTRUCTORS[type]['create'];
-
-  if (!Constructor) {
-  throw new Error(`Unrecognized type of task: ${type}`);
-  }
-
-  return new Constructor(parent, <any> { type });
 }
 
 export abstract class TaskState {
