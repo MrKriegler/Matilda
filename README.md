@@ -7,5 +7,8 @@ Open source Task management software for service based work. i.e. Plumbers, Stea
 Coming soon
 
 ## Installation
-
-Coming soon
+```
+npm i
+npm run
+npm run tests
+```
