@@ -1,6 +1,6 @@
 import { TaskData, TaskStatus } from '@matilda/src/types';
 import { ITaskStateParent } from '../types';
-import { TaskState } from '../base/TaskState';
+import { TaskState } from '../index';
 import {ERRORS, throwError } from '@matilda/lib/common';
 
 export class DeletedTaskState extends TaskState {

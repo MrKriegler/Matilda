@@ -1,0 +1,9 @@
+{
+    "api": {
+        "base": "api",
+        "version": "v1"
+    },
+    "logger": {
+        "level": "dev"
+    }
+}

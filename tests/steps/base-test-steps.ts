@@ -1,4 +1,6 @@
+import mongoose from 'mongoose';
 import { TaskData } from '@matilda/src/types';
+import { MONGO_URL } from '@matilda/lib/common';
 import { TaskTestSteps } from './task-test-steps';
 import { SystemTestSteps } from './system-test-steps';
 import { TEST_TIMEOUT } from '../consts';
@@ -21,9 +23,11 @@ export function setupTests(ptr: { timeout(ms: number): void }) {
   ptr.timeout(TEST_TIMEOUT);
 
   before(async function () {
+    await mongoose.connect(MONGO_URL, { useNewUrlParser: true });
   });
 
   after(async function () {
+    await mongoose.connection.close();
   });
 
   beforeEach(async function() {

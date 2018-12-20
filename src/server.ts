@@ -1,5 +1,6 @@
 import * as bodyParser from 'body-parser';
-import * as config from '../config.json';
+import * as config from '@matilda/lib/config.json';
+import { configureMongoStores } from '@matilda/lib/common';
 
 import express from 'express';
 import logger from 'morgan';
@@ -19,6 +20,14 @@ class Server {
         this.express = express();
         this.middleware();
         this.routes();
+        this.database();
+    }
+
+    /**
+     * Configure database.
+     */
+    private database(): void {
+      configureMongoStores();
     }
 
     /**
