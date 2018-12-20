@@ -43,7 +43,7 @@ export class TaskTestSteps {
 
     const createdTask = await this.state.system.runRequest(
       async () =>{
-        const response: Response = await request(app).post('/api/v1/tasks').send({})
+        const response: Response = await request(app).post('/api/v1/tasks').send(taskData)
         return response.body.data;
       }
     );
@@ -52,16 +52,13 @@ export class TaskTestSteps {
 
     const newTask: TaskData = <any> createdTask;
     this.state.currentTask.id = newTask.id;
-    this.state.currentTask.ref = newTask.ref;
     this.state.currentTask.task = newTask;
 
     expect(newTask.id).to.exist;
     expect(newTask.version).to.eq(1);
-    expect(newTask.ref).to.exist;
     expect(newTask.userId).to.not.exist;
 
     taskData.id = newTask.id;
-    taskData.ref = newTask.ref;
     taskData.version = 1;
 
     delete (<any> newTask)._id;

@@ -1,8 +1,10 @@
 import { TaskData } from '@matilda/src/types';
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response, NextFunction } from 'express';
+import { TaskManager, ITaskManager } from '@matilda/src/states';
 
 export class TaskController {
   router: Router;
+  manager: ITaskManager;
 
   /**
    *  Initialize Controller
@@ -10,23 +12,16 @@ export class TaskController {
   constructor() {
       this.router = Router();
       this.init();
+      this.manager = new TaskManager();
   }
 
   public async get(req: Request, res: Response, next: NextFunction) {
     res.status(200).json({ data: new Date() });
   }
 
-  public async post(req: Request, res: Response, next: NextFunction) {
-    let taskData: TaskData = {
-      type: 'installation',
-      status: 'new',
-      detail: 'Test task',
-      version: 1,
-      enabled: true,
-      ref: 'ref',
-      id: 'aasdasd'
-    };
-    res.status(200).json({ data: taskData });
+  post = async (req: Request, res: Response, next: NextFunction) => {
+    const task = await this.manager.createTask({task: req.body})
+    res.status(200).json({ data: task });
   }
 
   /**

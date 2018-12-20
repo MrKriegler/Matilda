@@ -1,6 +1,5 @@
 import { TaskData, TaskStatus, TaskType } from '@matilda/src/types';
-import { ITaskStateParent } from '../types';
-import { TASK_STATE_CONSTRUCTORS } from '../consts';
+import { ITaskStateParent, TASK_STATE_CONSTRUCTORS } from '../index';
 
 // Needed as opposed  to normal construct as the task does not exist yet
 export function constructCreateTaskState(
@@ -55,7 +54,14 @@ export abstract class TaskState {
   }
 
   public async update(data: TaskData): Promise<void> {
-    return void 0;
+    (<Array<keyof TaskData>> ['detail'])
+      .forEach(property => {
+        if (property in data) {
+          this.task[property] = data[property];
+        } else {
+          delete this.task[property];
+        }
+      });
   }
 }
 

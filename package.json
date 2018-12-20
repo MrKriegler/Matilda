@@ -7,7 +7,7 @@
     "tests": "mocha --require ts-node/register --require tsconfig-paths/register --require source-map-support/register --recursive tests/**/*.spec.ts",
     "start": "npm run build:live",
     "build": "tsc -p .",
-    "build:live": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts"
+    "build:live": "nodemon --watch 'src/**/*.ts' --require tsconfig-paths/register --exec \"ts-node\" src/index.ts"
   },
   "keywords": [],
   "author": "",

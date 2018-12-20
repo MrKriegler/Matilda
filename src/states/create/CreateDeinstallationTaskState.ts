@@ -1,6 +1,5 @@
 import { TaskData, TaskStatus } from '@matilda/src/types';
-import { ITaskStateParent } from '../types';
-import { TaskState } from '../base/TaskState';
+import { TaskState, ITaskStateParent } from '../index';
 import {ERRORS, throwError } from '@matilda/lib/common';
 
 
@@ -19,6 +18,7 @@ export class CreateDeinstallationTaskState extends TaskState {
     //   || throwError(ERRORS.EINVALID, 'valid providerId is required');
     // const company = data.companyId && await this.parent.loadCompany(data.companyId)
     //   || throwError(ERRORS.EINVALID, 'valid companyId is required');
+    this.task.enabled = true;
     return await super.moveTo(targetStatus, data);
   }
 }
