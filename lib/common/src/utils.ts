@@ -2,6 +2,9 @@ export function sleep(ms: number): Promise<any> {
   return new Promise(r => setTimeout(r, ms));
 }
 
+export function deepClone<T>(obj: T): T {
+  return JSON.parse(JSON.stringify(obj));
+}
 
 export function withCb<T>(fn: (cb: (err: any, ret?: T) => void) => void): Promise<T> {
   return new Promise<T>((resolve, reject) => fn((err, ret) => {

@@ -15,7 +15,6 @@ export class InprogressInstallationTaskState extends TaskState {
         break;
 
       case 'closed':
-
         break;
 
       default:

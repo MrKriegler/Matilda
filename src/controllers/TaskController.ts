@@ -2,6 +2,11 @@ import { TaskData } from '@matilda/src/types';
 import { Router, Request, Response, NextFunction } from 'express';
 import { TaskManager, ITaskManager } from '@matilda/src/states';
 
+/*
+* Class methods use arrow methods for 'this' fix
+* https://github.com/Microsoft/TypeScript/wiki/'this'-in-TypeScript
+*/
+
 export class TaskController {
   router: Router;
   manager: ITaskManager;
@@ -15,12 +20,18 @@ export class TaskController {
       this.manager = new TaskManager();
   }
 
-  public async get(req: Request, res: Response, next: NextFunction) {
+  public get = async (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json({ data: new Date() });
   }
 
-  post = async (req: Request, res: Response, next: NextFunction) => {
+  public post = async (req: Request, res: Response, next: NextFunction) => {
     const task = await this.manager.createTask({task: req.body})
+    res.status(200).json({ data: task });
+  }
+
+  public put = async (req: Request, res: Response, next: NextFunction) => {
+    console.log("UPDATING TASK!!!");
+    const task = await this.manager.updateTask({task: req.body, id: req.params.id})
     res.status(200).json({ data: task });
   }
 
@@ -31,6 +42,7 @@ export class TaskController {
   init() {
     this.router.get("/", this.get);
     this.router.post("/", this.post);
+    this.router.put("/:id", this.put);
   }
 }
 
