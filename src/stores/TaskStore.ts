@@ -7,11 +7,7 @@ import { findNextSequenceNumber, throwError, ERRORS, IMongoStoreQuery } from '@m
 export class TaskStore {
 
   public async createTask(task: TaskData): Promise<TaskData> {
-    task.id = `id:task:${await findNextSequenceNumber(mongoose.connection, 'task_id')}`;
     task.version = 1;
-
-    await mongoose
-      .connection
       .collection('tasks')
       .insertOne(task);
 
