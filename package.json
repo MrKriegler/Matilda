@@ -10,7 +10,7 @@
     "build:live": "nodemon --watch 'src/**/*.ts' --require tsconfig-paths/register --exec \"ts-node\" src/index.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "Noel Kriegler <n.kriegler@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.1.7",
