@@ -1,4 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
+import { runRequest } from '@matilda/lib/common';
 
 export class HealthController {
   router: Router;
@@ -7,12 +8,14 @@ export class HealthController {
    *  Initialize Controller
    */
   constructor() {
-      this.router = Router();
-      this.init();
+    this.router = Router();
+    this.init();
   }
 
   public async get(req: Request, res: Response, next: NextFunction) {
-    res.status(200).json({ data: new Date() });
+    await runRequest(res,
+      async () => new Date()
+    );
   }
 
   /**

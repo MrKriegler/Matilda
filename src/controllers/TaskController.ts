@@ -1,6 +1,7 @@
 import { TaskData } from '@matilda/src/types';
 import { Router, Request, Response, NextFunction } from 'express';
 import { TaskManager, ITaskManager } from '@matilda/src/states';
+import { runRequest } from '@matilda/lib/common';
 
 /*
 * Class methods use arrow methods for 'this' fix
@@ -21,18 +22,21 @@ export class TaskController {
   }
 
   public get = async (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({ data: new Date() });
+    await runRequest(res,
+      async () => new Date()
+    );
   }
 
   public post = async (req: Request, res: Response, next: NextFunction) => {
-    const task = await this.manager.createTask({task: req.body})
-    res.status(200).json({ data: task });
+    await runRequest(res,
+      async () => await this.manager.createTask({task: req.body})
+    );
   }
 
   public put = async (req: Request, res: Response, next: NextFunction) => {
-    console.log("UPDATING TASK!!!");
-    const task = await this.manager.updateTask({task: req.body, id: req.params.id})
-    res.status(200).json({ data: task });
+    await runRequest(res,
+      async () => await this.manager.updateTask({task: req.body, id: req.params.id})
+    );
   }
 
   /**
@@ -40,7 +44,7 @@ export class TaskController {
    * endpoints.
    */
   init() {
-    this.router.get("/", this.get);
+    this.router.get("/:id", this.get);
     this.router.post("/", this.post);
     this.router.put("/:id", this.put);
   }
