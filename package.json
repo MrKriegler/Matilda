@@ -1,7 +1,7 @@
 {
   "name": "matilda",
   "version": "1.0.0",
-  "description": "",
+  "description": "Open source Task management software for service based work. i.e. Plumbers, Steal work, etc",
   "main": "index.js",
   "scripts": {
     "tests": "mocha --require ts-node/register --require tsconfig-paths/register --require source-map-support/register --recursive tests/**/*.spec.ts",
@@ -10,7 +10,7 @@
     "build:live": "nodemon --watch 'src/**/*.ts' --require tsconfig-paths/register --exec \"ts-node\" src/index.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "Noel Kriegler <n.kriegler@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.1.7",
