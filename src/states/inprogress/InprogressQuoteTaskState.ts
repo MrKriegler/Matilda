@@ -15,7 +15,6 @@ export class InprogressQuoteTaskState extends TaskState {
         break;
 
       case 'closed':
-
         break;
 
       default:

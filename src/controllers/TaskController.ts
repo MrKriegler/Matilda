@@ -1,7 +1,6 @@
-import { TaskData } from '@matilda/src/types';
-import { Router, Request, Response, NextFunction } from 'express';
-import { TaskManager, ITaskManager } from '@matilda/src/managers';
 import { runRequest } from '@matilda/lib/common';
+import { TaskManager, ITaskManager } from '@matilda/src/managers';
+import { Router, Request, Response, NextFunction } from 'express';
 
 /*
 * Class methods use arrow methods for 'this' fix

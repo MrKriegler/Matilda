@@ -45,6 +45,7 @@ export class TaskManager {
     if (!task) {
       return throwError(ERRORS.ENOTFOUND, 'Task not found');
     }
+
     let state = constructTaskState(this.taskStateParent, task);
     state = await state.moveTo('deleted', task);
     await state.update(task);

@@ -15,7 +15,6 @@ export class InprogressRepairTaskState extends TaskState {
         break;
 
       case 'closed':
-
         break;
 
       default:

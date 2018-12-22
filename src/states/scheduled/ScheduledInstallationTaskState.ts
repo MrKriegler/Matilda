@@ -25,7 +25,7 @@ export class ScheduledInstallationTaskState extends TaskState {
 
   public async update(data: TaskData): Promise<void> {
     if (data.userId !== this.task.userId) {
-      throwError(ERRORS.EINVALID, 'valid installer user id required');
+      throwError(ERRORS.EINVALID, 'Assigned user required');
     }
 
     return await super.update(data);

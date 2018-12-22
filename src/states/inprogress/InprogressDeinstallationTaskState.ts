@@ -15,7 +15,6 @@ export class InprogressDeinstallationTaskState extends TaskState {
         break;
 
       case 'closed':
-
         break;
 
       default:

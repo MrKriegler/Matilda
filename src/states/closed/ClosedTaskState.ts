@@ -1,6 +1,6 @@
-import { TaskData, TaskStatus } from '@matilda/src/types';
 import { TaskState, ITaskStateParent } from '../index';
 import {ERRORS, throwError } from '@matilda/lib/common';
+import { TaskData, TaskStatus } from '@matilda/src/types';
 
 export class ClosedTaskState extends TaskState {
   public constructor(parent: ITaskStateParent,
