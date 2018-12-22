@@ -1,8 +1,7 @@
-import { ITaskStateParent, CreateTaskPayload, ITaskStore, UpdateTaskPayload, GetTaskPayload } from './types';
-import { TaskData } from '@matilda/src/types';
-import { constructCreateTaskState, constructTaskState } from '@matilda/src/states';
-import { TaskStore } from '@matilda/src/stores/TaskStore';
+import { TaskStore, ITaskStore } from '@matilda/src/stores/TaskStore';
 import { throwError, ERRORS, payloadRequestToStoreRequest } from '@matilda/lib/common';
+import { constructCreateTaskState, constructTaskState, ITaskStateParent } from '@matilda/src/states';
+import { TaskData , CreateTaskPayload, UpdateTaskPayload, GetTaskPayload, DeleteTaskPayload } from '@matilda/src/types';
 
 export class TaskManager {
   private store: ITaskStore;
@@ -26,7 +25,7 @@ export class TaskManager {
   }
 
   public async updateTask(payload: UpdateTaskPayload): Promise<TaskData> {
-    let task = await this.getTask(payload);
+    const task = await this.getTask(payload);
     if (!task) {
       return throwError(ERRORS.ENOTFOUND, 'Task not found');
     }
@@ -41,8 +40,28 @@ export class TaskManager {
     return await this.store.updateTask(state.task);
   }
 
+  public async deleteTask(payload: DeleteTaskPayload): Promise<TaskData> {
+    const task = await this.getTask(payload);
+    if (!task) {
+      return throwError(ERRORS.ENOTFOUND, 'Task not found');
+    }
+    let state = constructTaskState(this.taskStateParent, task);
+    state = await state.moveTo('deleted', task);
+    await state.update(task);
+
+    return await this.store.updateTask(state.task);
+  }
+
   private get taskStateParent(): ITaskStateParent {
     return {}
   }
 
 }
+
+export interface ITaskManager {
+  getTask(payload: GetTaskPayload): Promise<TaskData|null>
+  createTask(payload: CreateTaskPayload): Promise<TaskData>
+  updateTask(payload: UpdateTaskPayload): Promise<TaskData>
+  deleteTask(payload: DeleteTaskPayload): Promise<TaskData>
+}
+

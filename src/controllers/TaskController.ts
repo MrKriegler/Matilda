@@ -1,6 +1,6 @@
 import { TaskData } from '@matilda/src/types';
 import { Router, Request, Response, NextFunction } from 'express';
-import { TaskManager, ITaskManager } from '@matilda/src/states';
+import { TaskManager, ITaskManager } from '@matilda/src/managers';
 import { runRequest } from '@matilda/lib/common';
 
 /*
@@ -16,9 +16,9 @@ export class TaskController {
    *  Initialize Controller
    */
   constructor() {
-      this.router = Router();
-      this.init();
-      this.manager = new TaskManager();
+    this.manager = new TaskManager();
+    this.router = Router();
+    this.init();
   }
 
   public get = async (req: Request, res: Response, next: NextFunction) => {
@@ -39,6 +39,12 @@ export class TaskController {
     );
   }
 
+  public delete = async (req: Request, res: Response, next: NextFunction) => {
+    await runRequest(res,
+      async () => await this.manager.deleteTask({id: req.params.id})
+    );
+  }
+
   /**
    * Take each handler, and attach to one of the Express.Router"s
    * endpoints.
@@ -47,6 +53,7 @@ export class TaskController {
     this.router.get("/:id", this.get);
     this.router.post("/", this.post);
     this.router.put("/:id", this.put);
+    this.router.delete("/:id", this.delete);
   }
 }
 

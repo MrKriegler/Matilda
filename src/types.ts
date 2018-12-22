@@ -12,3 +12,19 @@ export class TaskData {
   'type':  ('quote' | 'installation' | 'repair' | 'deinstallation');
   'status':  ('new' | 'scheduled' | 'inprogress' | 'closed' | 'rescheduled' | 'deleted');
 }
+
+export interface GetTaskPayload {
+  'id':  string;
+}
+
+export interface DeleteTaskPayload extends GetTaskPayload {
+}
+
+export interface CreateTaskPayload {
+  'task': TaskData;
+}
+
+export interface UpdateTaskPayload {
+  'id': string;
+  'task': TaskData;
+}

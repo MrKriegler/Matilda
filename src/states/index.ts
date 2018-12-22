@@ -5,6 +5,5 @@ export * from './inprogress';
 export * from './new';
 export * from './closed';
 export * from './scheduled';
-export * from './TaskManager';
 export * from './types';
 export * from './consts';

@@ -51,3 +51,8 @@ export class TaskStore {
 
 }
 
+export interface ITaskStore {
+  loadTasks(query: IMongoStoreQuery): Cursor<TaskData>
+  createTask(task: TaskData): Promise<TaskData>;
+  updateTask(task: TaskData): Promise<TaskData>;
+}
