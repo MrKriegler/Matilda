@@ -10,7 +10,7 @@ Coming soon
 
 Create Task
 
-```
+```json
 POST http://localhost:3000/api/v1/tasks
 {
   "type": "quote",
@@ -23,7 +23,7 @@ POST http://localhost:3000/api/v1/tasks
 
 Update Task State
 
-```
+```json
 PUT http://localhost:3000/api/v1/tasks/id:task:1
 {
   "status": "new"
