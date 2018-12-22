@@ -22,7 +22,7 @@ export class TaskController {
 
   public get = async (req: Request, res: Response, next: NextFunction) => {
     await runRequest(res,
-      async () => new Date()
+      async () => await this.manager.getTask({id: req.params.id})
     );
   }
 

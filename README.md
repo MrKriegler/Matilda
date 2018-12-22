@@ -29,6 +29,12 @@ PUT /api/v1/tasks/id:task:1
 }
 ```
 
+Get Task
+
+```json
+GET /api/v1/tasks/id:task:1
+```
+
 Delete Task (soft delete)
 
 ```json
