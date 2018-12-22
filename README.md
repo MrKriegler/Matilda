@@ -16,8 +16,7 @@ POST http://localhost:3000/api/v1/tasks
   "type": "quote",
   "status": "new",
   "detail": "Test task",
-  "version": 1,
-  "enabled": true  
+  "version": 1
 }
 ```
 
