@@ -20,6 +20,9 @@ Installation is simple just run
 npm i
 ```
 
+If you do not have a local instance of mongoDB running then run `docker-compose up`.
+Be sure to run the `db_migrations/init_collection.js` on your mongodb shell.
+
 To run the server locally use
 
 ```
