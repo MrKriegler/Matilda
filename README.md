@@ -56,7 +56,7 @@ POST /api/v1/tasks
 Update Task State
 
 ```json
-PUT /api/v1/tasks/id:task:1
+PUT /api/v1/tasks/:id
 {
   "status": "new"
 }
@@ -65,12 +65,12 @@ PUT /api/v1/tasks/id:task:1
 Get Task
 
 ```json
-GET /api/v1/tasks/id:task:1
+GET /api/v1/tasks/:id
 ```
 
 Delete Task (soft delete)
 
 ```json
-DELETE /api/v1/tasks/id:task:1
+DELETE /api/v1/tasks/:id
 ```
 
