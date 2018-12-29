@@ -24,7 +24,7 @@ export async function configureMongoStores(readPreference = mongodb.ReadPreferen
     .then(() => {
       return {
         close: (): any => {
-          console.info("Disconnecting from mongodb...");
+          console.info('Disconnecting from mongodb...');
           return withCb(cb => mongoose.disconnect(cb));
         }
       };

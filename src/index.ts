@@ -29,9 +29,6 @@ function normalizePort(val: number | string): number | string | boolean {
 /**
  * Catch node errors for specific well known
  * errors.
- *
- * @param  {NodeJS.ErrnoException} error
- * @returns void
  */
 function onError(error: NodeJS.ErrnoException): void {
     if (error.syscall !== 'listen') throw error;
@@ -51,8 +48,6 @@ function onError(error: NodeJS.ErrnoException): void {
 }
 /**
  * We are alive
- *
- * @returns void
  */
 function onListening(): void {
     let addr = server.address();

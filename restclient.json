@@ -5,7 +5,7 @@
     {
       "type": "Project",
       "id": "7b764e89-04c3-429d-96e1-38c3e8b73a92",
-      "lastModified": "2018-12-29T09:55:02.067+02:00",
+      "lastModified": "2018-12-29T23:02:50.697+02:00",
       "name": "Matilda"
     },
     {
@@ -40,9 +40,7 @@
       "lastModified": "2018-12-29T09:55:02.067+02:00",
       "name": "GET http://localhost:3000/api/v1/tasks/id:task:1",
       "headers": [],
-      "metaInfo": {
-        "ownerId": "google-oauth2|106915669040165062216"
-      },
+      "metaInfo": {},
       "parentId": "7b764e89-04c3-429d-96e1-38c3e8b73a92"
     },
     {
@@ -77,30 +75,16 @@
         "path": "/api/v1/tasks"
       },
       "id": "3eea10ce-7024-40b7-9ea0-9d56ff395de6",
-      "lastModified": "2018-12-22T10:24:51.646+02:00",
+      "lastModified": "2018-12-29T23:02:50.698+02:00",
       "name": "POST http://localhost:3000/api/v1/tasks",
       "headers": [
-        {
-          "name": "Authorization",
-          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJub2VsQG1hbmFnZXIuY29tIiwianRpIjoiYTBmYjAxNjctZjZjYi00NmViLTgwYWUtMzZkNjA3MDZkZDg4IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJmMTIzMjI5OS1hZjBiLTQwZTItODA4Yy04MGNiZDYzZDExYzEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbiIsImV4cCI6MTUzNTYwOTUwNywiaXNzIjoibG9jYWxob3N0OjQ0MzMxIiwiYXVkIjoibG9jYWxob3N0OjQ0MzMxIn0._KwklIjp48k6wNLN64W9n6IKS47Nj1vekN7y4hg2Q7Q"
-        },
-        {
-          "name": "X-Pagination-Page",
-          "value": "1"
-        },
-        {
-          "name": "X-Pagination-Limit",
-          "value": "10"
-        },
         {
           "enabled": true,
           "name": "Content-Type",
           "value": "application/json"
         }
       ],
-      "metaInfo": {
-        "ownerId": "google-oauth2|106915669040165062216"
-      },
+      "metaInfo": {},
       "parentId": "7b764e89-04c3-429d-96e1-38c3e8b73a92"
     },
     {
@@ -135,30 +119,16 @@
         "path": "/api/v1/tasks/id:task:1"
       },
       "id": "3d7aef01-15c9-48cb-b817-544d75029be1",
-      "lastModified": "2018-12-22T15:00:19.979+02:00",
+      "lastModified": "2018-12-29T23:02:46.829+02:00",
       "name": "PUT http://localhost:3000/api/v1/tasks/id:task:1",
       "headers": [
-        {
-          "name": "Authorization",
-          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJub2VsQG1hbmFnZXIuY29tIiwianRpIjoiYTBmYjAxNjctZjZjYi00NmViLTgwYWUtMzZkNjA3MDZkZDg4IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJmMTIzMjI5OS1hZjBiLTQwZTItODA4Yy04MGNiZDYzZDExYzEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJhZG1pbiIsImV4cCI6MTUzNTYwOTUwNywiaXNzIjoibG9jYWxob3N0OjQ0MzMxIiwiYXVkIjoibG9jYWxob3N0OjQ0MzMxIn0._KwklIjp48k6wNLN64W9n6IKS47Nj1vekN7y4hg2Q7Q"
-        },
-        {
-          "name": "X-Pagination-Page",
-          "value": "1"
-        },
-        {
-          "name": "X-Pagination-Limit",
-          "value": "10"
-        },
         {
           "enabled": true,
           "name": "Content-Type",
           "value": "application/json"
         }
       ],
-      "metaInfo": {
-        "ownerId": "google-oauth2|106915669040165062216"
-      },
+      "metaInfo": {},
       "parentId": "7b764e89-04c3-429d-96e1-38c3e8b73a92"
     }
   ]

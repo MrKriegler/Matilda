@@ -18,7 +18,7 @@ export class InprogressQuoteTaskState extends TaskState {
         break;
 
       default:
-        throwError(ERRORS.EINVALID, 'Illegal state transition from inprogress to ' + targetStatus);
+        throwError(ERRORS.EINVALID, `Illegal state transition from inprogress to ${targetStatus}`);
     }
 
     return await super.moveTo(targetStatus, data);

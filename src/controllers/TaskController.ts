@@ -45,14 +45,14 @@ export class TaskController {
   }
 
   /**
-   * Take each handler, and attach to one of the Express.Router"s
+   * Take each handler, and attach to one of the Express.Router's
    * endpoints.
    */
   init() {
-    this.router.get("/:id", this.get);
-    this.router.post("/", this.post);
-    this.router.put("/:id", this.put);
-    this.router.delete("/:id", this.delete);
+    this.router.get('/:id', this.get);
+    this.router.post('/', this.post);
+    this.router.put('/:id', this.put);
+    this.router.delete('/:id', this.delete);
   }
 }
 

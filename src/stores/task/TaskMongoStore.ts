@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
-import { Cursor } from "mongodb";
+import { Cursor } from 'mongodb';
+import { ITaskStore } from '../types';
 import { TaskData } from '@matilda/src/types';
 import { findNextSequenceNumber, throwError, ERRORS, IMongoStoreQuery } from '@matilda/lib/common';
 
 
-export class TaskStore {
+export class TaskMongoStore implements ITaskStore {
 
   public async createTask(task: TaskData): Promise<TaskData> {
     task.id = `id:task:${await findNextSequenceNumber(mongoose.connection, 'task_id')}`;
@@ -49,10 +50,4 @@ export class TaskStore {
     return task;
   }
 
-}
-
-export interface ITaskStore {
-  loadTasks(query: IMongoStoreQuery): Cursor<TaskData>
-  createTask(task: TaskData): Promise<TaskData>;
-  updateTask(task: TaskData): Promise<TaskData>;
 }

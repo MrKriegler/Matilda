@@ -1,16 +1,25 @@
-import { TaskStore, ITaskStore } from '@matilda/src/stores/TaskStore';
+import { TaskMongoStore, ITaskStore } from '@matilda/src/stores';
 import { throwError, ERRORS, payloadRequestToStoreRequest } from '@matilda/lib/common';
 import { constructCreateTaskState, constructTaskState, ITaskStateParent } from '@matilda/src/states';
 import { TaskData , CreateTaskPayload, UpdateTaskPayload, GetTaskPayload, DeleteTaskPayload } from '@matilda/src/types';
+import { ITaskManager } from './types';
 
-export class TaskManager {
+
+ /**
+  *  Task Manager manages the task logic
+  */
+export class TaskManager implements ITaskManager {
   private store: ITaskStore;
 
+  /**
+   *  Initialize the Task Store
+   *  @todo: Allow for use of different stores/databases
+   */
   public constructor(){
-    this.store = new TaskStore();
+    this.store = new TaskMongoStore();
   }
 
-  public async getTask(payload: GetTaskPayload): Promise<TaskData|null> {
+  public async getTask(payload: GetTaskPayload): Promise<TaskData> {
     const query = payloadRequestToStoreRequest({ id: payload.id });
     query.filter.enabled = true;
     const tasks = await this.store.loadTasks(query).toArray();
@@ -24,6 +33,13 @@ export class TaskManager {
     return await this.store.createTask(state.task);
   }
 
+   /**
+    *  Gets task with ID
+    *  Constructs the task state
+    *  Move to new state if needed
+    *  Update Task sate
+    *  Save to DB
+    */
   public async updateTask(payload: UpdateTaskPayload): Promise<TaskData> {
     const task = await this.getTask(payload);
     if (!task) {
@@ -34,12 +50,18 @@ export class TaskManager {
     if (task.status !== payload.task.status) {
       state = await state.moveTo(payload.task.status, payload.task);
     }
-
     await state.update(payload.task);
 
     return await this.store.updateTask(state.task);
   }
 
+   /**
+    *  Gets task with ID
+    *  Constructs the task state
+    *  Moves task to deleted state
+    *  Update Task sate
+    *  Save to DB
+    */
   public async deleteTask(payload: DeleteTaskPayload): Promise<TaskData> {
     const task = await this.getTask(payload);
     if (!task) {
@@ -59,10 +81,4 @@ export class TaskManager {
 
 }
 
-export interface ITaskManager {
-  getTask(payload: GetTaskPayload): Promise<TaskData|null>
-  createTask(payload: CreateTaskPayload): Promise<TaskData>
-  updateTask(payload: UpdateTaskPayload): Promise<TaskData>
-  deleteTask(payload: DeleteTaskPayload): Promise<TaskData>
-}
 

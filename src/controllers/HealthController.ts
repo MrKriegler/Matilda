@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response, NextFunction } from 'express';
 import { runRequest } from '@matilda/lib/common';
 
 export class HealthController {
@@ -19,11 +19,11 @@ export class HealthController {
   }
 
   /**
-   * Take each handler, and attach to one of the Express.Router"s
+   * Take each handler, and attach to one of the Express.Router's
    * endpoints.
    */
   init() {
-    this.router.get("/", this.get);
+    this.router.get('/', this.get);
   }
 }
 
