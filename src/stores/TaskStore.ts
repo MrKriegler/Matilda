@@ -43,7 +43,7 @@ export class TaskStore {
       .updateOne(query, { $set: task });
 
     if (result.modifiedCount === 0) {
-      throwError(ERRORS.ECONFLICT, 'Task has been updated by a concurrent process, please refresh');
+      throwError(ERRORS.ECONFLICT, 'Task has not been updated, this means a concurrent process has updated it.');
     }
 
     return task;

@@ -1,6 +1,7 @@
 import Chance from 'chance';
 import { expect, AssertionError } from 'chai';
 import { IGlobalTestStateHolder } from './base-test-steps';
+import { Response } from 'superagent';
 import { sleep } from '@matilda/lib/common'
 
 const chance = new Chance();
@@ -56,15 +57,10 @@ export class SystemTestSteps {
       .forEach(key => expect(e[key]).to.eq(validate[key]));
   }
 
-  public async runRequest<T>(fn: () => Promise<T>): Promise<T | undefined> {
-    try {
-      this.state.lastError = null;
-      return await fn();
-    } catch (e) {
-      this.state.lastError = e;
-      console.log(e);
-      return undefined;
-    }
+  public async runRequest(fn: () => Promise<Response>) {
+    const response: Response = await fn();
+    this.state.lastError = response.error || null;
+    return response.body.data;
   }
 
   public async waitUntilAssertionsSucceed<T>(timeout: number,

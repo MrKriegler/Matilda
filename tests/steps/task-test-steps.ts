@@ -1,6 +1,7 @@
 import { TaskData } from '@matilda/src/types';
 import { IGlobalTestStateHolder } from './base-test-steps';
-import { Response } from 'superagent';
+import { deepClone } from '@matilda/lib/common';
+import { TEST_INSTALLER } from '../consts';
 import * as chai from "chai";
 
 chai.use(require("chai-http"));
@@ -22,7 +23,6 @@ export class TaskTestSteps {
   }
 
   public async new_task_is_created(template: TaskTemplate = { type: 'installation' }) {
-
     template.expectedStatus = template.expectedStatus || 'new';
 
     let taskData: TaskData = {
@@ -42,10 +42,7 @@ export class TaskTestSteps {
     }
 
     const createdTask = await this.state.system.runRequest(
-      async () =>{
-        const response: Response = await request(app).post('/api/v1/tasks').send(taskData)
-        return response.body.data;
-      }
+      async () => await request(app).post('/api/v1/tasks').send(taskData)
     );
 
     expect(createdTask).to.be.an('object');
@@ -63,6 +60,44 @@ export class TaskTestSteps {
 
     delete (<any> newTask)._id;
     expect(newTask).to.deep.eq(taskData);
+  }
+
+  public async task_is_scheduled() {
+    return await this.task_is_updated('scheduled');
+  }
+
+  public async task_is_closed() {
+    return await this.task_is_updated('closed');
+  }
+
+  public async task_is_updated(status: TaskTemplate['expectedStatus']) {
+    expect(this.state.currentTask.id).to.exist;
+
+    let taskData = deepClone(this.state.currentTask.task);
+    taskData.status = status;
+    taskData.userId = TEST_INSTALLER;
+
+    const updatedTask = await this.state.system.runRequest(
+      async () => await request(app).put(`/api/v1/tasks/${this.state.currentTask.id}`).send(taskData)
+    );
+
+    if (this.state.lastError) {
+      return;
+    }
+
+    expect(updatedTask).to.be.an('object');
+
+    const newTask: TaskData = <any> updatedTask;
+    expect(newTask).to.exist;
+    expect(newTask.status).to.eq(status);
+    expect(newTask.version).to.eq(taskData.version + 1);
+
+    this.state.currentTask.task.version = newTask.version;
+    this.state.currentTask.task.status = status;
+    this.state.currentTask.task.userId = taskData.userId;
+
+    delete (<any> newTask)._id;
+    expect(newTask).to.deep.eq(this.state.currentTask.task);
   }
 
   public async close() {

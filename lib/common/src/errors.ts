@@ -101,11 +101,11 @@ export function convertToPlatformError(e: any) {
 
 export function sanitizeError(e: any) {
   if (!e) { return e; }
-  let r: any = {};
-  if (e.statusCode) { r.statusCode = e.statusCode; }
-  if (e.status) { r.status = e.status; }
-  if (e.message) { r.message = e.message; }
-  if (e.reason) { r.reason = sanitizeError(e.reason); }
-  if (e.meta) { r.meta = e.meta; }
-  return r;
+  return {
+    ...(e.status) && {status: e.status},
+    ...(e.message) && {message: e.message},
+    ...(e.reason) && {reason: e.reason},
+    ...(e.meta) && {meta: e.meta},
+    ...(e.statusCode) && {statusCode: e.statusCode}
+  };
 }

@@ -25,7 +25,7 @@ export class ScheduledRepairTaskState extends TaskState {
 
   public async update(data: TaskData): Promise<void> {
     if (data.userId !== this.task.userId) {
-      throwError(ERRORS.EINVALID, 'Assigned user required');
+      this.task.userId = data.userId;
     }
 
     return await super.update(data);
