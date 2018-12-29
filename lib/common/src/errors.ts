@@ -1,9 +1,5 @@
 import * as os from 'os';
 
-export interface IErrorConstructor {
-  new(msg: string): any;
-}
-
 export interface IErrorDefinition {
   statusCode: number;
   status: string;
@@ -23,7 +19,7 @@ export const ERRORS = {
   ECONFLICT: declareError(500, 'E-CONFLICT'),
   EOTHER: declareError(500, 'E-OTHER'),
   EPIPECLOSED: declareError(0, 'E-PIPECLOSED'),
-  EUNSUPPORTED: declareError(500, 'E-UNSU'),
+  EUNSUPPORTED: declareError(500, 'E-UNSUPPORTED'),
   ETARGET: declareError(500, 'E-TARGET'),
   ETIMEOUT: declareError(408, 'E-TIMEOUT'),
   EBUSY: declareError(503, 'E-BUSY'),
@@ -42,19 +38,8 @@ export interface PlatformError {
   meta?: any;
 }
 
-function translateReasonIfNecessary(reason: any): any {
-  if (!reason) {
-    return reason;
-  }
-  if (reason.stack) {
-    return {
-      message: `${reason.name} : ${reason.message}`,
-      stack: reason.stack
-    };
-  } else if (typeof reason === 'string') {
-    return reason;
-  }
-  return reason;
+export function throwError(def: IErrorDefinition, message: string, reason?: any): never {
+  throw constructError(def, message, reason);
 }
 
 export function constructError(def: IErrorDefinition, message: string, reason?: any): PlatformError {
@@ -72,12 +57,19 @@ export function constructError(def: IErrorDefinition, message: string, reason?: 
   return ret;
 }
 
-export function throwError(def: IErrorDefinition, message: string, reason?: any): never {
-  throw constructError(def, message, reason);
-}
-
-export function isError(def: IErrorDefinition, e: any): boolean {
-  return e && e.status && e.status === def.status;
+function translateReasonIfNecessary(reason: any): any {
+  if (!reason) {
+    return reason;
+  }
+  if (reason.stack) {
+    return {
+      message: `${reason.name} : ${reason.message}`,
+      stack: reason.stack
+    };
+  } else if (typeof reason === 'string') {
+    return reason;
+  }
+  return reason;
 }
 
 export function source() {
@@ -86,26 +78,4 @@ export function source() {
   let pid = process.pid;
 
   return `${hostname}:${pid}:${name}`;
-}
-
-export function convertToPlatformError(e: any) {
-  if (e.$platformError) {
-    return e;
-  }
-  if (e.constructor.name === 'ValidationError') {
-    return constructError(ERRORS.EINVALID, e.message);
-  }
-
-  return constructError(ERRORS.ETARGET, `Error: ${e}`, e);
-}
-
-export function sanitizeError(e: any) {
-  if (!e) { return e; }
-  return {
-    ...(e.status) && {status: e.status},
-    ...(e.message) && {message: e.message},
-    ...(e.reason) && {reason: e.reason},
-    ...(e.meta) && {meta: e.meta},
-    ...(e.statusCode) && {statusCode: e.statusCode}
-  };
 }
