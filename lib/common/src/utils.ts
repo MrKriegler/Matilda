@@ -21,7 +21,7 @@ export function withCb<T>(fn: (cb: (err: any, ret?: T) => void) => void): Promis
 export async function runRequest<T>(res: Response, fn: () => Promise<T>) {
   try {
     const result = await fn();
-    res.status(200).json({ data: result });
+    return res.status(200).json({ data: result });
   } catch (e) {
     const { statusCode, message, status } = e;
     const error = {
@@ -29,6 +29,7 @@ export async function runRequest<T>(res: Response, fn: () => Promise<T>) {
       message,
       status
     }
-    res.status(statusCode).json(error);
+    console.error(e)
+    return res.status(statusCode).json(error);
   }
 }

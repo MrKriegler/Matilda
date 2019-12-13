@@ -4,6 +4,7 @@
   "description": "Open source Task management software for service based work. i.e. Plumbers, Steal work, etc",
   "main": "index.js",
   "scripts": {
+    "tests": "mocha --require ts-node/register --require tsconfig-paths/register --require source-map-support/register --recursive tests/**/*.spec.ts",
     "start": "DEBUG=* node --require tsconfig-paths/register --inspect=5858 -r ts-node/register ./src/index.ts",
     "start:watch": "nodemon",
     "build": "tsc"

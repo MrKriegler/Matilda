@@ -20,7 +20,7 @@ export interface IPayloadQuery {
 }
 
 export async function configureMongoStores(readPreference = mongodb.ReadPreference.PRIMARY_PREFERRED): Promise<any> {
-  return withCb(cb => mongoose.connect(MONGO_URL, { readPreference, useNewUrlParser: true }, cb))
+  return withCb(cb => mongoose.connect(MONGO_URL, { useUnifiedTopology: true , readPreference, useNewUrlParser: true }, cb))
     .then(() => {
       return {
         close: (): any => {

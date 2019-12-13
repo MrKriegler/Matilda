@@ -1,4 +1,4 @@
-import { TaskData, TaskStatus, TaskType } from '@matilda/src/types';
+import { TaskData, TaskStatus, TaskType, TaskStatuses } from '@matilda/src/types';
 import { ITaskStateParent, TASK_STATE_CONSTRUCTORS } from '../index';
 
 // Needed as opposed  to normal construct as the task does not exist yet
@@ -6,10 +6,9 @@ export function constructCreateTaskState(
   parent: ITaskStateParent,
   type: TaskType
 ): TaskState {
-  const Constructor = TASK_STATE_CONSTRUCTORS[type] && TASK_STATE_CONSTRUCTORS[type]['create'];
-
+  const Constructor = TASK_STATE_CONSTRUCTORS[type] && TASK_STATE_CONSTRUCTORS[type][TaskStatuses.CREATED];
   if (!Constructor) {
-  throw new Error(`Unrecognized type of task: ${type}`);
+    throw new Error(`Unrecognized type of task: ${type}`);
   }
 
   return new Constructor(parent, <any> { type });
@@ -57,6 +56,7 @@ export abstract class TaskState {
     (<Array<keyof TaskData>> ['detail'])
       .forEach(property => {
         if (property in data) {
+          //@ts-ignore
           this.task[property] = data[property];
         } else {
           delete this.task[property];
