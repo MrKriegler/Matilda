@@ -10,7 +10,24 @@ export class TaskData {
   'version': number;
   'enabled': boolean;
   'type':  ('quote' | 'installation' | 'repair' | 'deinstallation');
-  'status':  ('new' | 'scheduled' | 'inprogress' | 'closed' | 'rescheduled' | 'deleted');
+  'status':  ('created'| 'new' | 'scheduled' | 'inprogress' | 'closed' | 'rescheduled' | 'deleted');
+}
+
+export enum TaskStatuses {
+  CREATED = 'created',
+  NEW = 'new',
+  SCHEDULED = 'scheduled',
+  INPROGRESS = 'inprogress',
+  CLOSED = 'closed',
+  RESCHEDULED = 'rescheduled',
+  DELETED = 'deleted'
+}
+
+export enum TaskTypes {
+  QUOTE = 'quote',
+  INSTALLATION = 'installation',
+  REPAIR = 'repair',
+  DEINSTALLATION = 'deinstallation',
 }
 
 export interface GetTaskPayload {

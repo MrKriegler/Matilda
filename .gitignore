@@ -39,3 +39,4 @@ typings/
 lib/*.js
 test/*.js
 *.map
+data/

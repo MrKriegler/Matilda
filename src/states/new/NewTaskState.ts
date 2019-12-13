@@ -9,7 +9,7 @@ export class NewTaskState extends TaskState {
 
   public async onEnter(sourceStatus: TaskStatus): Promise<void> {
     if (this.task.status === 'rescheduled') {
-      const description = `Rescheduled ${this.task.type}`;
+      const description = `Rescheduled ${this.task.id}`;
     }
 
     return super.onEnter(sourceStatus);

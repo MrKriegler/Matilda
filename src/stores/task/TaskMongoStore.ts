@@ -8,7 +8,7 @@ import { findNextSequenceNumber, throwError, ERRORS, IMongoStoreQuery } from '@m
 export class TaskMongoStore implements ITaskStore {
 
   public async createTask(task: TaskData): Promise<TaskData> {
-    task.id = `id:task:${await findNextSequenceNumber(mongoose.connection, 'task_id')}`;
+    task.id = `mid:task:${await findNextSequenceNumber(mongoose.connection, 'task_id')}`;
     task.version = 1;
     await mongoose
     .connection

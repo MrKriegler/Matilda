@@ -34,11 +34,11 @@
           "version": "V11"
         },
         "host": "localhost:3000",
-        "path": "/api/v1/tasks/id:task:1"
+        "path": "/api/v1/tasks/mid:task:1"
       },
       "id": "f284239c-5277-42b0-878b-a8376c7137c5",
       "lastModified": "2018-12-29T09:55:02.067+02:00",
-      "name": "GET http://localhost:3000/api/v1/tasks/id:task:1",
+      "name": "GET http://localhost:3000/api/v1/tasks/mid:task:1",
       "headers": [],
       "metaInfo": {},
       "parentId": "7b764e89-04c3-429d-96e1-38c3e8b73a92"
@@ -116,11 +116,11 @@
           "version": "V11"
         },
         "host": "localhost:3000",
-        "path": "/api/v1/tasks/id:task:1"
+        "path": "/api/v1/tasks/mid:task:1"
       },
       "id": "3d7aef01-15c9-48cb-b817-544d75029be1",
       "lastModified": "2018-12-29T23:02:46.829+02:00",
-      "name": "PUT http://localhost:3000/api/v1/tasks/id:task:1",
+      "name": "PUT http://localhost:3000/api/v1/tasks/mid:task:1",
       "headers": [
         {
           "enabled": true,

@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { runRequest } from '@matilda/lib/common';
 
+
 export class HealthController {
   router: Router;
 
@@ -14,7 +15,7 @@ export class HealthController {
 
   public async get(req: Request, res: Response, next: NextFunction) {
     await runRequest(res,
-      async () => new Date()
+      async () => ({ date: new Date() })
     );
   }
 

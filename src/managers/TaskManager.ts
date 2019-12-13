@@ -1,9 +1,8 @@
 import { TaskMongoStore, ITaskStore } from '@matilda/src/stores';
 import { throwError, ERRORS, payloadRequestToStoreRequest } from '@matilda/lib/common';
 import { constructCreateTaskState, constructTaskState, ITaskStateParent } from '@matilda/src/states';
-import { TaskData , CreateTaskPayload, UpdateTaskPayload, GetTaskPayload, DeleteTaskPayload } from '@matilda/src/types';
+import { TaskData , CreateTaskPayload, UpdateTaskPayload, GetTaskPayload, DeleteTaskPayload, TaskStatuses } from '@matilda/src/types';
 import { ITaskManager } from './types';
-
 
  /**
   *  Task Manager manages the task logic
@@ -28,7 +27,7 @@ export class TaskManager implements ITaskManager {
 
   public async createTask(payload: CreateTaskPayload): Promise<TaskData> {
     let state = constructCreateTaskState(this.taskStateParent, payload.task.type);
-    state = await state.moveTo('new', payload.task);
+    state = await state.moveTo(TaskStatuses.NEW, payload.task);
     await state.update(payload.task);
     return await this.store.createTask(state.task);
   }
@@ -69,7 +68,7 @@ export class TaskManager implements ITaskManager {
     }
 
     let state = constructTaskState(this.taskStateParent, task);
-    state = await state.moveTo('deleted', task);
+    state = await state.moveTo(TaskStatuses.DELETED, task);
     await state.update(task);
 
     return await this.store.updateTask(state.task);

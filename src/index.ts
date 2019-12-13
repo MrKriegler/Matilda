@@ -3,10 +3,9 @@ import * as http from 'http';
 import debug from 'debug';
 import Server from './server';
 
-debug('ts-express:server');
-
 const port = normalizePort(process.env.PORT || 3000);
 Server.set('port', port);
+debug('booting Matilda');
 
 const server = http.createServer(Server);
 server.listen(port);

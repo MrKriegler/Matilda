@@ -20,24 +20,15 @@ Installation is simple just run
 npm i
 ```
 
-If you do not have a local instance of mongoDB running then run `docker-compose up`.
-Be sure to run the `db_migrations/init_collection.js` on your mongodb shell.
+If you do not have a local instance of mongoDB running then run `docker-compose up -d`.
+
+Connect your mongo db instance `localhost:27017` and run the code in `db_migrations/init_collection.js` on your mongodb shell.
 
 To run the server locally use
 
 ```
-npm run
+npm start
 ```
-
-## Running Tests
-
-To run the e2e tests simply run
-
-```
-npm run tests
-```
-
-You can install [restlet_client](https://restlet.com/modules/client/) and import the `restclient.json` for the API collection.
 
 ## Current endpoints
 

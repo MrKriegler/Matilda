@@ -1,6 +1,6 @@
 import { TaskState } from './base/TaskState';
 import { ITaskStateParent } from './types';
-import { TaskData } from '@matilda/src/types';
+import { TaskData, TaskStatuses, TaskTypes } from '@matilda/src/types';
 import { NewTaskState } from './new';
 import { ClosedTaskState } from './closed';
 import { DeletedTaskState } from './deleted';
@@ -29,40 +29,40 @@ export const TASK_STATE_CONSTRUCTORS: {
       [state: string]: new (parent: ITaskStateParent, task: TaskData) => TaskState
     }
   } = {
-    'quote': {
-      'create': CreateQuoteTaskState,
-      'new': NewTaskState,
-      'scheduled': ScheduledQuoteTaskState,
-      'inprogress': InprogressQuoteTaskState,
-      'closed': ClosedTaskState,
-      'rescheduled': NewTaskState,
-      'deleted': DeletedTaskState
+    [TaskTypes.QUOTE]: {
+      [TaskStatuses.CREATED]: CreateQuoteTaskState,
+      [TaskStatuses.NEW] : NewTaskState,
+      [TaskStatuses.SCHEDULED]: ScheduledQuoteTaskState,
+      [TaskStatuses.INPROGRESS]: InprogressQuoteTaskState,
+      [TaskStatuses.CLOSED]: ClosedTaskState,
+      [TaskStatuses.RESCHEDULED]: NewTaskState,
+      [TaskStatuses.DELETED]: DeletedTaskState
     },
-    'installation': {
-      'create': CreateInstallationTaskState,
-      'new': NewTaskState,
-      'scheduled': ScheduledInstallationTaskState,
-      'inprogress': InprogressInstallationTaskState,
-      'closed': ClosedTaskState,
-      'rescheduled': NewTaskState,
-      'deleted': DeletedTaskState
+    [TaskTypes.INSTALLATION]: {
+      [TaskStatuses.CREATED]: CreateInstallationTaskState,
+      [TaskStatuses.NEW]: NewTaskState,
+      [TaskStatuses.SCHEDULED]: ScheduledInstallationTaskState,
+      [TaskStatuses.INPROGRESS]: InprogressInstallationTaskState,
+      [TaskStatuses.CLOSED]: ClosedTaskState,
+      [TaskStatuses.RESCHEDULED]: NewTaskState,
+      [TaskStatuses.DELETED]: DeletedTaskState
     },
-    'repair': {
-      'create': CreateRepairTaskState,
-      'new': NewTaskState,
-      'scheduled': ScheduledRepairTaskState,
-      'inprogress': InprogressRepairTaskState,
-      'closed': ClosedTaskState,
-      'rescheduled': NewTaskState,
-      'deleted': DeletedTaskState
+    [TaskTypes.REPAIR]: {
+      [TaskStatuses.CREATED]: CreateRepairTaskState,
+      [TaskStatuses.NEW]: NewTaskState,
+      [TaskStatuses.SCHEDULED]: ScheduledRepairTaskState,
+      [TaskStatuses.INPROGRESS]: InprogressRepairTaskState,
+      [TaskStatuses.CLOSED]: ClosedTaskState,
+      [TaskStatuses.RESCHEDULED]: NewTaskState,
+      [TaskStatuses.DELETED]: DeletedTaskState
     },
-    'deinstallation': {
-      'create': CreateDeinstallationTaskState,
-      'new': NewTaskState,
-      'scheduled': ScheduledDeinstallationTaskState,
-      'inprogress': InprogressDeinstallationTaskState,
-      'closed': ClosedTaskState,
-      'rescheduled': NewTaskState,
-      'deleted': DeletedTaskState
+    [TaskTypes.DEINSTALLATION]: {
+      [TaskStatuses.CREATED]: CreateDeinstallationTaskState,
+      [TaskStatuses.NEW]: NewTaskState,
+      [TaskStatuses.SCHEDULED]: ScheduledDeinstallationTaskState,
+      [TaskStatuses.INPROGRESS]: InprogressDeinstallationTaskState,
+      [TaskStatuses.CLOSED]: ClosedTaskState,
+      [TaskStatuses.RESCHEDULED]: NewTaskState,
+      [TaskStatuses.DELETED]: DeletedTaskState
   }
 };
