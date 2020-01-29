@@ -11,10 +11,9 @@ export function deepClone<T>(obj: T): T {
 export function withCb<T>(fn: (cb: (err: any, ret?: T) => void) => void): Promise<T> {
   return new Promise<T>((resolve, reject) => fn((err, ret) => {
     if (err) {
-      reject(err);
-      return;
+      return reject(err);
     }
-    resolve(ret);
+    return resolve(ret);
   }));
 }
 
@@ -29,7 +28,6 @@ export async function runRequest<T>(res: Response, fn: () => Promise<T>) {
       message,
       status
     }
-    console.error(e)
     return res.status(statusCode).json(error);
   }
 }

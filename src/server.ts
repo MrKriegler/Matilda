@@ -5,8 +5,8 @@ import { configureMongoStores } from '@matilda/lib/common';
 import express from 'express';
 import logger from 'morgan';
 
-import HealthController from './controllers/HealthController';
-import TaskController from './controllers/TaskController';
+import HealthController from '@matilda/src/controllers/HealthController';
+import TaskController from '@matilda/src/controllers/TaskController';
 
 const baseRoute = `/${config.api.base}/${config.api.version}`;
 

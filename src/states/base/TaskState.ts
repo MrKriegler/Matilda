@@ -1,7 +1,7 @@
 import { TaskData, TaskStatus, TaskType, TaskStatuses } from '@matilda/src/types';
 import { ITaskStateParent, TASK_STATE_CONSTRUCTORS } from '../index';
 
-// Needed as opposed  to normal construct as the task does not exist yet
+// Needed as opposed to normal construct as the task does not exist yet
 export function constructCreateTaskState(
   parent: ITaskStateParent,
   type: TaskType

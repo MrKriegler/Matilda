@@ -1,7 +1,7 @@
 import * as http from 'http';
 
 import debug from 'debug';
-import Server from './server';
+import Server from '@matilda/src/server';
 
 const port = normalizePort(process.env.PORT || 3000);
 Server.set('port', port);
