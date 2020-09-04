@@ -52,6 +52,6 @@
     "mongoose": "^5.4.0",
     "morgan": "^1.9.1",
     "reflect-metadata": "^0.1.12",
-    "type-graphql": "^0.15.0"
+    "type-graphql": "^0.17.6"
   }
 }
