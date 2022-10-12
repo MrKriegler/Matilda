@@ -34,7 +34,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
     "chance": "^1.0.18",
-    "mocha": "^5.2.0",
+    "mocha": "^10.0.0",
     "nodemon": "^1.18.9",
     "superagent": "^4.0.0",
     "ts-node": "^7.0.1",
