@@ -48,7 +48,7 @@
     "@types/morgan": "^1.7.35",
     "body-parser": "^1.18.3",
     "debug": "^4.1.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "mongoose": "^5.4.0",
     "morgan": "^1.9.1",
     "reflect-metadata": "^0.1.12",
