@@ -1,7 +1,7 @@
 import { TaskMongoStore, ITaskStore } from '@matilda/src/stores';
 import { throwError, ERRORS, payloadRequestToStoreRequest } from '@matilda/lib/common';
 import { constructCreateTaskState, constructTaskState, ITaskStateParent } from '@matilda/src/states';
-import { TaskData , CreateTaskPayload, UpdateTaskPayload, GetTaskPayload, DeleteTaskPayload, TaskStatuses } from '@matilda/src/types';
+import { TaskData , CreateTaskPayload, UpdateTaskPayload, GetTaskPayload, DeleteTaskPayload, AddNotePayload, TaskNote, TaskStatuses } from '@matilda/src/types';
 import { ITaskManager } from './types';
 
  /**
@@ -23,6 +23,16 @@ export class TaskManager implements ITaskManager {
     query.filter.enabled = true;
     const tasks = await this.store.loadTasks(query).toArray();
     return tasks.length ? tasks[0] : null;
+  }
+
+  public async listTasks(payload: any): Promise<{ tasks: TaskData[], total: number }> {
+    const query = payloadRequestToStoreRequest(payload);
+    query.filter.enabled = true;
+    const [tasks, total] = await Promise.all([
+      this.store.loadTasks(query).toArray(),
+      this.store.countTasks(query.filter)
+    ]);
+    return { tasks, total };
   }
 
   public async createTask(payload: CreateTaskPayload): Promise<TaskData> {
@@ -72,6 +82,25 @@ export class TaskManager implements ITaskManager {
     await state.update(task);
 
     return await this.store.updateTask(state.task);
+  }
+
+  public async addNote(payload: AddNotePayload): Promise<TaskData> {
+    const task = await this.getTask(payload);
+    if (!task) {
+      return throwError(ERRORS.ENOTFOUND, 'Task not found');
+    }
+
+    if (task.status === TaskStatuses.DELETED) {
+      return throwError(ERRORS.EINVALID, 'Cannot add notes to a deleted task');
+    }
+
+    const note: TaskNote = {
+      text: payload.note.text,
+      author: payload.note.author,
+      createdAt: new Date().toISOString()
+    };
+
+    return await this.store.addNote(task.id!, task.version, note);
   }
 
   private get taskStateParent(): ITaskStateParent {

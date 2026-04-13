@@ -1,9 +1,11 @@
-import { Cursor } from 'mongodb';
-import { TaskData } from '@matilda/src/types';
+import { FindCursor } from 'mongodb';
+import { TaskData, TaskNote } from '@matilda/src/types';
 import { IMongoStoreQuery } from '@matilda/lib/common';
 
 export interface ITaskStore {
-  loadTasks(query: IMongoStoreQuery): Cursor<TaskData>
+  loadTasks(query: IMongoStoreQuery): FindCursor<TaskData>;
+  countTasks(filter: any): Promise<number>;
   createTask(task: TaskData): Promise<TaskData>;
   updateTask(task: TaskData): Promise<TaskData>;
+  addNote(taskId: string, version: number, note: TaskNote): Promise<TaskData>;
 }

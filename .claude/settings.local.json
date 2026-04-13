@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(npm install:*)",
+      "Bash(mongosh --eval \"db.runCommand\\({ping: 1}\\)\")",
+      "Bash(mongo --eval \"db.runCommand\\({ping: 1}\\)\")",
+      "Bash(node:*)",
+      "Bash(npm uninstall:*)"
+    ]
+  }
+}

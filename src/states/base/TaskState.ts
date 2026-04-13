@@ -53,15 +53,9 @@ export abstract class TaskState {
   }
 
   public async update(data: TaskData): Promise<void> {
-    (<Array<keyof TaskData>> ['detail'])
-      .forEach(property => {
-        if (property in data) {
-          //@ts-ignore
-          this.task[property] = data[property];
-        } else {
-          delete this.task[property];
-        }
-      });
+    if (data.detail !== undefined) this.task.detail = data.detail;
+    if (data.customer !== undefined) this.task.customer = data.customer;
+    if (data.site !== undefined) this.task.site = data.site;
   }
 }
 

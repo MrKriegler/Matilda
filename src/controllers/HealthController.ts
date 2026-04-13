@@ -1,34 +1,47 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { runRequest } from '@matilda/lib/common';
 
-
 export class HealthController {
   router: Router;
 
-  /**
-   *  Initialize Controller
-   */
   constructor() {
     this.router = Router();
     this.init();
   }
 
+  /**
+   * @openapi
+   * /health:
+   *   get:
+   *     tags: [Health]
+   *     summary: Health check
+   *     security: []
+   *     responses:
+   *       200:
+   *         description: Server is running
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 data:
+   *                   type: object
+   *                   properties:
+   *                     date:
+   *                       type: string
+   *                       format: date-time
+   */
   public async get(req: Request, res: Response, next: NextFunction) {
     await runRequest(res,
       async () => ({ date: new Date() })
     );
   }
 
-  /**
-   * Take each handler, and attach to one of the Express.Router's
-   * endpoints.
-   */
   init() {
     this.router.get('/', this.get);
   }
 }
 
-// Create the HealthController, and export its configured Express.Router
 const controller = new HealthController();
 const router = controller.router;
 

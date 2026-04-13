@@ -16,7 +16,7 @@ export const ERRORS = {
   EINVALID: declareError(400, 'E-INVALID'),
   ENOTFOUND: declareError(404, 'E-NOTFOUND'),
   EEXISTS: declareError(409, 'E-EXISTS'),
-  ECONFLICT: declareError(500, 'E-CONFLICT'),
+  ECONFLICT: declareError(409, 'E-CONFLICT'),
   EOTHER: declareError(500, 'E-OTHER'),
   EPIPECLOSED: declareError(0, 'E-PIPECLOSED'),
   EUNSUPPORTED: declareError(500, 'E-UNSUPPORTED'),

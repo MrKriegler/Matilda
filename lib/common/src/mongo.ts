@@ -1,6 +1,4 @@
-import * as mongodb from 'mongodb';
 import mongoose from 'mongoose';
-import { withCb } from './utils';
 import { MONGO_URL } from './config';
 
 export interface IMongoStoreQuery {
@@ -19,27 +17,26 @@ export interface IPayloadQuery {
   [name: string]: any;
 }
 
-export async function configureMongoStores(readPreference = mongodb.ReadPreference.PRIMARY_PREFERRED): Promise<any> {
-  return withCb(cb => mongoose.connect(MONGO_URL, { useUnifiedTopology: true , readPreference, useNewUrlParser: true }, cb))
-    .then(() => {
-      return {
-        close: (): any => {
-          console.info('Disconnecting from mongodb...');
-          return withCb(cb => mongoose.disconnect(cb));
-        }
-      };
-    });
+export async function configureMongoStores(): Promise<any> {
+  await mongoose.connect(MONGO_URL);
+  return {
+    close: async () => {
+      console.info('Disconnecting from mongodb...');
+      await mongoose.disconnect();
+    }
+  };
 }
 
 export async function findNextSequenceNumber(db: mongoose.Connection, sequenceName: string): Promise<number> {
-  const rec = await withCb<mongodb.FindAndModifyWriteOpResultObject>(cb => db
+  const rec = await db
     .collection('sequences')
     .findOneAndUpdate(
-      {_id: sequenceName},
-      {$inc: {nextIndex: 2}},
-      {upsert: true}, cb));
+      {_id: sequenceName as any},
+      {$inc: {nextIndex: 1}},
+      {upsert: true, returnDocument: 'after'}
+    );
 
-  return rec.value && rec.value.nextIndex || 1;
+  return rec!.nextIndex as number;
 }
 
 export function payloadRequestToStoreRequest(payload: IPayloadQuery): IMongoStoreQuery {
